@@ -1,13 +1,15 @@
 extends Area2D
 
+signal hit
 const SPEED := 400
+# o @onready faz a mesma função do método ready
 @onready var screen_size = get_viewport_rect().size
 @onready var animated: AnimatedSprite2D = $animated
 @onready var collision: CollisionShape2D = $collision
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
-	pass
+	hide()
 
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -31,7 +33,21 @@ func _process(delta: float) -> void:
 		animated.flip_h = false
 	else:
 		animated.flip_h = true
+		
+	# If ternário
+	animated.flip_h = true if velocity.x > 0 else false
 	
 		
 	position += velocity * delta
 	position = position.clamp(Vector2.ZERO, screen_size)
+
+# Verificação da colisão do player com os bugs
+func _on_body_entered(body: Node2D) -> void:
+	hide()
+	hit.emit()
+	collision.set_deferred("disabled", true)
+	
+func start_position(playerPosition):
+	position = playerPosition
+	show()
+	collision.disabled = false
