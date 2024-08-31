@@ -8,11 +8,9 @@ func _ready() -> void:
 	var enemy_types = anim.sprite_frames.get_animation_names()
 	# Rodando a animação de forma rondomica
 	anim.play(enemy_types[randi() % enemy_types.size()])
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-func _process(delta: float) -> void:
-	pass
+	
 
 # Chamada a cada vez que esse nó sair da tela
 func _on_visible_screen_exited() -> void:
+	# Faz com que o nó seja liberado da memória
 	queue_free()

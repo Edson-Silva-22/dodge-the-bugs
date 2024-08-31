@@ -37,8 +37,8 @@ func _process(delta: float) -> void:
 	# If ternário
 	animated.flip_h = true if velocity.x > 0 else false
 	
-		
 	position += velocity * delta
+	# clamp(): impedi que o player saia fora dos limites da tela
 	position = position.clamp(Vector2.ZERO, screen_size)
 
 # Verificação da colisão do player com os bugs
@@ -47,6 +47,7 @@ func _on_body_entered(body: Node2D) -> void:
 	hit.emit()
 	collision.set_deferred("disabled", true)
 	
+# Define a posição inicial do player
 func start_position(playerPosition):
 	position = playerPosition
 	show()

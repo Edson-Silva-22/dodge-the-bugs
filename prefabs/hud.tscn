@@ -1,0 +1,135 @@
+[gd_scene load_steps=9 format=3 uid="uid://br4e6mmvvl3hl"]
+
+[ext_resource type="Script" path="res://scripts/hud.gd" id="1_7aj3t"]
+[ext_resource type="FontFile" uid="uid://cwbt2ugsjq30h" path="res://font/Dihil.ttf" id="1_ca1do"]
+[ext_resource type="StyleBox" uid="uid://bt1pmertdjtd3" path="res://styles/bottonStyle.tres" id="2_lhvcj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_07exc"]
+content_margin_left = 10.0
+content_margin_top = 10.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_xfwta"]
+content_margin_left = 0.0
+content_margin_top = 0.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+draw_center = false
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhgsa"]
+content_margin_left = 0.0
+content_margin_top = 10.0
+content_margin_right = 0.0
+content_margin_bottom = 0.0
+bg_color = Color(0.155574, 0.506776, 0.414251, 1)
+corner_radius_top_left = 10
+corner_radius_top_right = 10
+corner_radius_bottom_right = 10
+corner_radius_bottom_left = 10
+
+[sub_resource type="InputEventAction" id="InputEventAction_pd08a"]
+action = &"start_game"
+
+[sub_resource type="Shortcut" id="Shortcut_svmb0"]
+events = [SubResource("InputEventAction_pd08a")]
+
+[node name="HUD" type="CanvasLayer"]
+script = ExtResource("1_7aj3t")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ScoreLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -40.0
+offset_right = 34.0
+offset_bottom = 87.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.939689, 0.906419, 0.77037, 1)
+theme_override_fonts/font = ExtResource("1_ca1do")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_07exc")
+text = "0"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="RecordScore" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -30.0
+offset_top = 120.0
+offset_right = 19.0
+offset_bottom = 162.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.939689, 0.906419, 0.77037, 1)
+theme_override_fonts/font = ExtResource("1_ca1do")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/normal = SubResource("StyleBoxFlat_07exc")
+text = "0"
+horizontal_alignment = 3
+vertical_alignment = 3
+
+[node name="MessageLabel" type="Label" parent="Control"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -145.0
+offset_top = -99.0
+offset_right = 145.0
+offset_bottom = 99.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0.193259, 0.608652, 0.499283, 1)
+theme_override_colors/font_shadow_color = Color(0.939689, 0.906419, 0.77037, 1)
+theme_override_constants/shadow_offset_y = 2
+theme_override_fonts/font = ExtResource("1_ca1do")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/normal = SubResource("StyleBoxFlat_xfwta")
+text = "Dodge the bugs"
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="StartButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -143.0
+offset_top = -142.0
+offset_right = 143.0
+offset_bottom = -68.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_colors/font_hover_color = Color(0.939689, 0.906419, 0.77037, 1)
+theme_override_colors/font_color = Color(0.939689, 0.906419, 0.77037, 1)
+theme_override_fonts/font = ExtResource("1_ca1do")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/hover = SubResource("StyleBoxFlat_lhgsa")
+theme_override_styles/normal = ExtResource("2_lhvcj")
+shortcut = SubResource("Shortcut_svmb0")
+text = "Start"
+
+[node name="MessageTimer" type="Timer" parent="."]
+wait_time = 2.0
+one_shot = true
+
+[connection signal="pressed" from="Control/StartButton" to="." method="_on_start_button_pressed"]
+[connection signal="timeout" from="MessageTimer" to="." method="_on_message_timer_timeout"]
