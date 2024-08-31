@@ -53,8 +53,12 @@ func save_score_record(score: int):
 	# JavaScriptBridge.eval(): usado para executar um código javascript, em forma de string, na godot. 
 	# No Método JavaScriptBridge.eval pode-se passar um segudo parâmetro boleano que indicará se o código será executado globalmente
 	var lastRecordSalved = JavaScriptBridge.eval("localStorage.getItem('record_score');")
-	print(typeof(lastRecordSalved))
-	if lastRecordSalved != null and score > lastRecordSalved.to_int():
+
+	if lastRecordSalved != null:
+		if score > lastRecordSalved.to_int():
+			JavaScriptBridge.eval("localStorage.setItem('record_score', %s);" % [str(score)])
+	
+	else:
 		JavaScriptBridge.eval("localStorage.setItem('record_score', %s);" % [str(score)])
 
 
